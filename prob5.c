@@ -6,20 +6,17 @@
 int main(int argc, char **argv)
 {
 
-  for ( int i = 1 ; ; i++ ) {
-    for ( int j = 1; j <= NUM ; j++ ) {
-      if ( !(i % j == 0) ) {
-        break;
-      }
-      if ( j == NUM ) {
-        printf("Smallest number than can be divided be each of the numbers "
-               "from 1 to %d is : %d\n", NUM, i);
-        return 0;
-      }
+  int temp = 1, num = 1, i = 1;
+  while ( i <= NUM ) {
+    if ( num % i == 0 ) {
+      i++;
+      temp = num; 
+    } else {
+      num = num + temp;
     }
   }
 
-
+  printf("Smallest num %d\n", num);
 
 }
 
