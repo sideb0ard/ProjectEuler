@@ -8,21 +8,10 @@ int initprimesidx = 0;
 long long primefactors[100] = {0};
 int primeidx = 0;
 
+void fillprimes();
 void factorize(long long num);
 bool isprime(long long num);
 bool done = false;
-
-void fillprimes()
-{
-  int i = 2;
-  do {
-    if ( isprime(i) ) {
-      initprimes[initprimesidx++] = i;
-    }
-    i++;
-  } while ( initprimesidx < maxnumprimes );
-}
-
 
 int main(int argc, char **argv)
 {
@@ -82,4 +71,15 @@ bool isprime(long long num)
     }
   }
   return true;
+}
+
+void fillprimes()
+{
+  int i = 2;
+  do {
+    if ( isprime(i) ) {
+      initprimes[initprimesidx++] = i;
+    }
+    i++;
+  } while ( initprimesidx < maxnumprimes );
 }
