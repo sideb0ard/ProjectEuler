@@ -8,21 +8,20 @@
 bool ispalin(long long num);
 char* reverse(char*);
 
-int big_pal = 0;
-
 int main(int argc, char **argv)
 {
+  int big_pal = 0;
+  char wurd[10];
 
-  for ( int i = 0; i < SIZENUM; i++ ) {
-    for ( int j = 0; j < SIZENUM; j++ ) {
+  for ( int i = SIZENUM; i > 100; i-- ) {
+    for ( int j = SIZENUM; j > 100; j-- ) {
       int product = i * j;
-      printf("Product: %d\n", product);
-      if ( ispalin(product) && product > big_pal ) big_pal = product;
+      sprintf(wurd, "%d", product);
+      if ( !strcmp(wurd, reverse(wurd)) && product > big_pal ) big_pal = product;
     }
   }
 
   printf("Biggest Palindrome is %d (size: %d)\n", big_pal, SIZENUM);
-
 }
 
 char* reverse(char *wurd) {
@@ -34,11 +33,3 @@ char* reverse(char *wurd) {
   }
   return revwurd;
 }
-
-bool ispalin(long long num) {
-  char wordnum[100];
-  sprintf(wordnum, "%lld", num);
-  char *revwurd = reverse(wordnum);
-  return (!strcmp(wordnum, revwurd) ? true : false );
-}
-
