@@ -3,23 +3,67 @@
 #include <stdbool.h>
 #include <string.h>
 #include <inttypes.h>
+#include <math.h>
 
 bool isprime(long long num);
+bool q_isprime(long long num);
 int numbits(int num);
 void bitnums(int num, char* bitwurd);
 void rev(char* wurd);
+int newton(int num);
 
 int main(int argc, char **argv)
 {
-    if (argc != 2 ) return -1;
-    long long num = strtoll(argv[1], NULL, 10);
+    //if (argc != 2 ) return -1;
+    //long long num = strtoll(argv[1], NULL, 10);
     //printf("Num of bits in %lld is %d\n", num, numbits(num));
 
-    char bitwurd[2049] = {0};
-    bitnums(num, bitwurd);
+    //char bitwurd[2049] = {0};
+    //bitnums(num, bitwurd);
     //printf("BACKWURDS %s\n", bitwurd);
-    rev(bitwurd);
-    printf("FWARDSS %s\n", bitwurd);
+    //rev(bitwurd);
+    //printf("FWARDSS %s\n", bitwurd);
+
+    //printf("Square root of %lld is %d\n", num, newton(num));
+    int topprime;
+    int count = 0;
+    int idx = 1;
+    while ( count != 10001 ) {
+        if ( q_isprime(idx) ) {
+        //if ( isprime(idx) ) {
+            count++;
+            topprime = idx;
+        }
+        idx++;
+    }
+    printf("10,001st Prime is %d\n", topprime);
+}
+
+bool isprime(long long num)
+{
+    for ( int i = 2; i < num; i++ ) {
+        if ( num % i == 0 )
+            return false;
+    }
+    return true;
+}
+
+bool q_isprime(long long num)
+{
+    if ( num <= 1 )
+        return false;
+    else if ( num <= 3 )
+        return true;
+    else if ( num % 2 == 0 || num % 3 == 0 )
+        return false;
+    int x = 5;
+    while ( x * x <= num ) {
+        if ( num % x == 0 || num % ( x + 2 ) == 0 ) {
+            return false;
+        }
+        x += 6;
+    }
+    return true;
 }
 
 int numbits(int num)
@@ -67,3 +111,19 @@ void rev(char* wurd)
 #undef XOR_SWAP
     }
 }
+
+int newton(int num)
+// http://stackoverflow.com/questions/1623375/writing-your-own-square-root-function
+{
+    if ( num <= 0 )
+        return -1;
+    int x = pow(2, numbits(num)/2);
+    int y;
+    while (1) {
+        y = floor((x + floor(num/x))/2);
+        if ( y >= x )
+            return x;
+        x = y;
+    }
+}
+
